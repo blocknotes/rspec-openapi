@@ -1,0 +1,24 @@
+---
+openapi: 3.0.3
+info:
+  title: issue
+  version: 1.0.0
+servers: []
+paths:
+  "/hello/world":
+    get:
+      summary: world
+      tags:
+      - Hello
+      responses:
+        '200':
+          description: returns hello world
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  hello:
+                    type: string
+              example:
+                hello: world
