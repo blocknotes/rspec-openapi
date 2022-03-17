@@ -19,6 +19,8 @@ class << RSpec::OpenAPI::RecordBuilder = Object.new
     # Generate `path` and `summary` in a framework-friendly manner when possible
     if rails?
       route = find_rails_route(request)
+      return warn("RSpec::OpenAPI: no route matched for #{request.request_method} #{request.path_info}") unless route
+
       path = route.path.spec.to_s.delete_suffix('(.:format)')
       summary = "#{route.requirements[:action]}"
       tags = [route.requirements[:controller]&.classify]
@@ -84,7 +86,8 @@ class << RSpec::OpenAPI::RecordBuilder = Object.new
       end
       return route
     end
-    raise "No route matched for #{request.request_method} #{request.path_info}"
+
+    nil
   end
 
   # :controller and :action always exist. :format is added when routes is configured as such.
