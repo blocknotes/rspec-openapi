@@ -80,14 +80,15 @@ class << RSpec::OpenAPI::RecordBuilder = Object.new
       request.path_info = File.join(request.script_name, request.path_info)
     end
 
-    app.routes.router.recognize(request) do |route|
-      unless route.path.anchored
-        route = find_rails_route(request, app: route.app.app, fix_path: false)
+    found_route = nil
+    if app.respond_to? :routes
+      app.routes.router.recognize(request) do |route|
+        found_route ||=
+          route.app.dispatcher? ? route : find_rails_route(request, app: route.app.rack_app, fix_path: false)
       end
-      return route
     end
 
-    nil
+    found_route
   end
 
   # :controller and :action always exist. :format is added when routes is configured as such.
