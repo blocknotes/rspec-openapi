@@ -634,6 +634,63 @@
           }
         }
       }
+    },
+    "/images": {
+      "post": {
+        "summary": "create",
+        "tags": [
+          "Image"
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "my_file": {
+                    "type": "object",
+                    "properties": {
+                      "caption": {
+                        "type": "string"
+                      },
+                      "data": {
+                        "type": "string",
+                        "format": "binary"
+                      }
+                    }
+                  }
+                }
+              },
+              "example": {
+                "my_file": {
+                  "caption": "A test file",
+                  "data": "#<ActionDispatch::Http::UploadedFile:0x00007fa135f56dc8>"
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "uploads a file",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "string"
+                    }
+                  }
+                },
+                "example": {
+                  "status": "ok"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   }
 }

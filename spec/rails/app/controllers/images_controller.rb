@@ -4,4 +4,8 @@ class ImagesController < ApplicationController
     QBoAAAAASUVORK5CYII='.unpack('m').first
     send_data png, type: 'image/png', disposition: 'inline'
   end
+
+  def create
+    render json: { status: :ok }
+  end
 end

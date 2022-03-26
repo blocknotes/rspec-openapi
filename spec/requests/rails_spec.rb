@@ -113,6 +113,19 @@ RSpec.describe 'Images', type: :request do
       expect(response.status).to eq(200)
     end
   end
+
+  describe '#create' do
+    let(:image_data) { Base64.urlsafe_decode64('R0lGODlhAQABAIAAAP///wAAACH5BAEAAAAALAAAAAABAAEAAAICRAEAOw==') }
+
+    it 'uploads a file' do
+      Tempfile.create('blank.gif') do |file|
+        uploaded_file = Rack::Test::UploadedFile.new(file, 'image/gif')
+        uploaded_file.write(image_data)
+        post '/images', params: { my_file: { caption: 'A test file', data: uploaded_file } }
+        expect(response.status).to eq(200)
+      end
+    end
+  end
 end
 
 RSpec.describe 'Extra routes', type: :request do
