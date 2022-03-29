@@ -54,6 +54,11 @@ paths:
         schema:
           type: string
         example: token
+      - name: scope
+        in: query
+        schema:
+          type: string
+        example: recent
       responses:
         '200':
           description: returns a list of tables
