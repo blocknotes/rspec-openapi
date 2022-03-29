@@ -52,23 +52,6 @@ RSpec.describe 'Tables', type: :request do
     end
   end
 
-  describe '#show' do
-    it 'returns a table' do
-      get '/tables/1', headers: { authorization: 'k0kubun' }
-      expect(response.status).to eq(200)
-    end
-
-    it 'does not return a table if unauthorized' do
-      get '/tables/1'
-      expect(response.status).to eq(401)
-    end
-
-    it 'does not return a table if not found' do
-      get '/tables/2', headers: { authorization: 'k0kubun' }
-      expect(response.status).to eq(404)
-    end
-  end
-
   describe '#create' do
     it 'returns a table' do
       post '/tables', headers: { authorization: 'k0kubun', 'Content-Type': 'application/json' }, params: {
